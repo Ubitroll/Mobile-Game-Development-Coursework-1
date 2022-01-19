@@ -10,15 +10,21 @@
     <link rel="stylesheet" type ="text/css" href = "gameCSS.css">
 
 </head>
-
 <body>
-
 <!-- Set Container -->
 <div id="container">
     <!–– Initialise Canvas and buttons ––>
     <canvas id="gameCanvas"></canvas>
-</div>
 
+    <audio autoplay loop>
+        <source src="gameMusic.mp3">
+
+    </audio>
+
+    <a href="file:///android_asset/gameOver.html">
+        <button id="quitButton">End Game</button>
+    </a>
+</div>
 
 <!–– Access each Javascript file ––>
 <script type = "text/javascript" src = "main.js"> </script>

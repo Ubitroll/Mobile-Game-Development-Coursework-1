@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Enable Html editing within WebView
         webView.getSettings().setJavaScriptEnabled(true);
         //Enter Java file here
-        webView.loadUrl("file:///android_asset/game.html");
+        webView.loadUrl("file:///android_asset/mainMenu.html");
 
     }
 }

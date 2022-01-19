@@ -14,11 +14,11 @@ const Controller = function()
         // Perform different actions depending on the type
         switch(key_code)
         {
-            case 37: this.left.getInput(down);
+            case 38: this.left.getInput(down);
             break;
-            case 38: this.up.getInput(down);
+            case 39: this.up.getInput(down);
             break;
-            case 39: this.right.getInput(down);
+            case 40: this.right.getInput(down);
         }
     };
 

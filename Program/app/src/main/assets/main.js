@@ -2,8 +2,6 @@ window.addEventListener("load", function(evt)
 {
     "use strict";
 
-
-
     const AssetManager = function()
     {
         this.tileSetImage = undefined;
@@ -73,7 +71,6 @@ window.addEventListener("load", function(evt)
 
         game.update();
     };
-
 
     var assetManager = new AssetManager();
     var controller = new Controller();

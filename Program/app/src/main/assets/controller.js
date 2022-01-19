@@ -4,31 +4,44 @@ const Controller = function()
     this.right = new Controller.ButtonInput();
     this.up = new Controller.ButtonInput();
 
+    // Controls for keyboard
+
+    // Check the type of button that is down
     this.keyDownUp = function(type, key_code)
     {
         var down = (type == "keydown") ? true : false;
 
+        // Perform different actions depending on the type
         switch(key_code)
         {
-            case 38: this.left.getInput(down);
+            case 37: this.left.getInput(down);
             break;
-            case 37: this.up.getInput(down);
+            case 38: this.up.getInput(down);
             break;
-            case 40: this.right.getInput(down);
+            case 39: this.right.getInput(down);
         }
     };
+
+
+
 };
 
+
+
+
+// Inherit constructor
 Controller.prototype =
 {
     constructor : Controller
 };
 
+// Initialise the controller input
 Controller.ButtonInput = function()
 {
     this.active = this.down = false;
 };
 
+// If a button is pushed down set that button to being active
 Controller.ButtonInput.prototype =
 {
     constructor : Controller.ButtonInput,

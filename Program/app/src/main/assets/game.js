@@ -1,20 +1,22 @@
 const Game = function()
 {
+    // Initialise game world
+    this.world = new Game.World();
 
-  this.world = new Game.World();
-
-  this.update = function()
-  {
-    this.world.update();
-  };
+     this.update = function()
+    {
+        this.world.update();
+    };
 
 };
 
+// Inherit constructor
 Game.prototype  =
 {
     constructor : Game,
 };
 
+// Function to initilaise animation
 Game.Animator = function(frameSet, delay, mode = "loop")
 {
     this.count = 0;
@@ -25,6 +27,7 @@ Game.Animator = function(frameSet, delay, mode = "loop")
     this.mode = mode;
 };
 
+// Inherit Constructor and Animations
 Game.Animator.prototype  =
 {
     constructor: Game.Animator,
@@ -64,15 +67,14 @@ Game.Animator.prototype  =
     }
 };
 
-
-
+// Collider function
 Game.Collider = function()
 {
 
-
     this.collide = function(value, object, tileX, tileY, tileSize)
     {
-        switch(value) //Which value does the tile from the collision map have
+        // Which value does the tile from the collision map have and trigger collision functions accordingly
+        switch(value)
         {
 
             case  1: this.collideTop      (object, tileY); break;
@@ -125,6 +127,7 @@ Game.Collider = function()
     }
 };
 
+// Inherited collision functions
 Game.Collider.prototype   =
 {
     constructor: Game.Collider,
@@ -292,7 +295,7 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 Game.Collectible = function(x,y)
 {
     Game.Object.call(this, x,y,7,14);
-    Game.Animator.call(this, Game.Collectible.prototype.frameSets["bob"], 20);
+    Game.Animator.call(this, Game.Collectible.prototype.frameSets["collectable"], 20);
 
     this.frameIndex = Math.floor(Math.random()* 2);
 
@@ -305,7 +308,7 @@ Game.Collectible = function(x,y)
 
 Game.Collectible.prototype  =
 {
-    frameSets: {"bob":[12,13]},
+    frameSets: {"collectable":[12,13]},
 
     updatePos: function()
     {
@@ -377,48 +380,48 @@ Game.Player.prototype =
         }
     },
 
-  //Remember to update the player directioin dumb hed
+    //Remember to update the player direction
     moveLeft:function()  { this.directionX = -1; this.velocityX -= 0.5; },
     moveRight:function() { this.directionX = 1; this.velocityX += 0.5; },
 
     updateAnimation: function()
     {
     //This section checks to see what way the player is moving and with that information it displays the correct sprite
-      if(this.velocityY < 0)
-      {
-          if(this.directionX < 0)
-          {
-              this.changeFrames(this.frameSets["jumpLeft"], "pause");
-          }
-          else
-          {
-              this.changeFrames(this.frameSets["jumpRight"], "pause");
-          }
-      }
-      else if(this.directionX < 0)
-      {
-          if(this.velocityX < -0.1)
-          {
-              this.changeFrames(this.frameSets["moveLeft"], "loop", 5);
-          }
-          else
-          {
-              this.changeFrames(this.frameSets["idleLeft"], "pause");
-          }
-      }
-      else if(this.directionX > 0)
-      {
-          if(this.velocityX > 0.1)
-          {
-              this.changeFrames(this.frameSets["moveRight"], "loop", 5);
-          }
-          else
-          {
-              this.changeFrames(this.frameSets["idleRight"], "pause");
-          }
-      }
+        if(this.velocityY < 0)
+        {
+            if(this.directionX < 0)
+            {
+                this.changeFrames(this.frameSets["jumpLeft"], "pause");
+            }
+            else
+            {
+                this.changeFrames(this.frameSets["jumpRight"], "pause");
+            }
+        }
+        else if(this.directionX < 0)
+        {
+            if(this.velocityX < -0.1)
+            {
+                this.changeFrames(this.frameSets["moveLeft"], "loop", 5);
+            }
+            else
+            {
+                this.changeFrames(this.frameSets["idleLeft"], "pause");
+            }
+        }
+        else if(this.directionX > 0)
+        {
+            if(this.velocityX > 0.1)
+            {
+                this.changeFrames(this.frameSets["moveRight"], "loop", 5);
+            }
+            else
+            {
+                this.changeFrames(this.frameSets["idleRight"], "pause");
+            }
+        }
 
-      this.animate();
+        this.animate();
 
     },
 
@@ -457,8 +460,7 @@ Game.TileSet = function(numOfColumns, tileSize )
     this.tileSize = tileSize;
 
     let theFrame = Game.Frame;
-//An array of the frames from the spritesheet
-//Make a loading function for this so you dont have to hardcode the frames xoxo
+    // An array of the frames from the spritesheet
     this.frames = [new theFrame(115,  96, 13, 16, 0, -4), // IdleLeft
                    new theFrame( 50,  96, 13, 16, 0, -4), // JumpLeft
                    new theFrame(102,  96, 13, 16, 0, -4), new theFrame(89, 96, 13, 16, 0, -4), new theFrame(76, 96, 13, 16, 0, -4), new theFrame(63, 96, 13, 16, 0, -4), // MoveLeft
@@ -527,7 +529,7 @@ Game.World.prototype  =
     {
         var top, bottom, left, right, value;
 
-        console.info("checkong");
+        //console.info("checking");
 
         top = Math.floor(object.getTop() / this.tileSet.tileSize);
         left = Math.floor(object.getLeft() / this.tileSet.tileSize);
@@ -572,31 +574,31 @@ Game.World.prototype  =
 
     update:function()
     {
-      this.player.updatePos(this.gravity, this.friction);
+        this.player.updatePos(this.gravity, this.friction);
 
-      this.collideObject(this.player);
+        this.collideObject(this.player);
 
-      for(let index = this.collectible.length -1; index > -1; --index)
-      {
-        let collectible = this.collectible[index];
-
-        collectible.updatePos();
-        collectible.animate();
-
-        if(collectible.collideObject(this.player))
+        for(let index = this.collectible.length -1; index > -1; --index)
         {
-            this.collectible.splice(this.collectible.indexOf(collectible), 1);
-            this.collectibleCount ++;
+            let collectible = this.collectible[index];
+
+            collectible.updatePos();
+            collectible.animate();
+
+            if(collectible.collideObject(this.player))
+            {
+                this.collectible.splice(this.collectible.indexOf(collectible), 1);
+                this.collectibleCount ++;
+            }
         }
-      }
 
-      for(let index = this.grass.length -1; index > -1; --index)
-      {
-        let grass = this.grass[index];
-        grass.animate();
-      }
+        for(let index = this.grass.length -1; index > -1; --index)
+        {
+            let grass = this.grass[index];
+            grass.animate();
+        }
 
-      this.player.updateAnimation();
+        this.player.updateAnimation();
     }
 };
 

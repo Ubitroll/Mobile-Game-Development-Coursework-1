@@ -1,4 +1,4 @@
-package org.me.gcu.mobillegamedevcoursework1;
+package com.example.mobiledevgame;
 
 import org.junit.Test;
 

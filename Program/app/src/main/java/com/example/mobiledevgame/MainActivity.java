@@ -1,4 +1,4 @@
-package org.me.gcu.mobillegamedevcoursework1;
+package com.example.mobiledevgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        webView = (WebView)findViewById(R.id.webview1);
 
+        // Set WebView context
+        webView = (WebView)findViewById(R.id.webview1);
+        // Enable Html editing within WebView
         webView.getSettings().setJavaScriptEnabled(true);
         //Enter Java file here
-        webView.loadUrl("file:///android_asset/boilerplate.html");
+        webView.loadUrl("file:///android_asset/game.html");
 
     }
 }

@@ -42,8 +42,6 @@ window.addEventListener("load", function(evt)
 
     var render = function()
     {
-
-
         display.drawMap(assetManager.tileSetImage, game.world.tileSet.columns, game.world.graphicsMap, game.world.columns, game.world.tileSet.tileSize);
 
         var frame = undefined;
@@ -55,10 +53,6 @@ window.addEventListener("load", function(evt)
         game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5 + frame.offsetX),
         game.world.player.y + frame.offsetY, frame.width, frame.height);
         length
-
-
-
-        collectibleParagraph.innerHTML = "Arrow keys to move. :) ";
 
         display.render();
     };
